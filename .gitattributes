@@ -1,0 +1,13 @@
+# Normalise les fins de ligne : le dépôt stocke du LF, quel que soit le
+# système de celui qui commite. Sans cela, un fichier écrit sous Windows
+# arrive en CRLF dans la CI Linux, où `ruff format --check` le signale.
+* text=auto eol=lf
+
+# Fichiers binaires : aucune conversion, aucun diff textuel.
+*.png   binary
+*.joblib binary
+*.pkl   binary
+
+# Données et artefacts : diff textuel inutile dans les revues.
+*.csv   text eol=lf -diff
+dvc.lock linguist-generated=true
