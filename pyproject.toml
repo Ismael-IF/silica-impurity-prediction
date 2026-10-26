@@ -1,0 +1,33 @@
+[project]
+name = "silica-impurity-prediction"
+version = "1.0.0"
+description = "Pipeline ML reproductible de prédiction de l'impureté en silice d'une usine de flottation"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Ismael Foudjo" }]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+filterwarnings = ["error::DeprecationWarning:src.*"]
+
+[tool.ruff]
+line-length = 90
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle
+    "F",   # pyflakes
+    "I",   # tri des imports
+    "UP",  # tournures modernes
+    "B",   # pièges courants
+    "SIM", # simplifications
+]
+ignore = [
+    "E501", # longueur gérée par le formateur
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Le backend matplotlib doit être fixé avant l'import de pyplot.
+"src/viz.py" = ["E402"]

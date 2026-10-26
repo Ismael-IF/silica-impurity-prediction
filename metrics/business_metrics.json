@@ -1,0 +1,34 @@
+{
+    "n_heures_test": 364,
+    "tolerance_pp": 0.5,
+    "part_heures_dans_tolerance_pct": 47.0,
+    "erreur_absolue_mediane_pp": 0.5396,
+    "erreur_absolue_p90_pp": 1.4385,
+    "biais_moyen_pp": 0.0013,
+    "reference_moyenne_train_pp": 2.1616,
+    "rmse_reference_moyenne_pp": 1.0234,
+    "rmse_modele_pp": 0.8782,
+    "reduction_erreur_vs_reference_pct": 14.2,
+    "alerte_hors_spec": {
+        "seuil_pp": 3.0,
+        "heures_hors_spec_reelles": 76,
+        "detectees": 21,
+        "manquees": 55,
+        "fausses_alertes": 9,
+        "conformes_bien_classees": 279,
+        "rappel": 0.2763,
+        "precision": 0.7
+    },
+    "alerte_calibree": {
+        "objectif_rappel": 0.7,
+        "objectif_rappel_atteint": true,
+        "seuil_pp": 2.15,
+        "alertes_levees": 159,
+        "detectees": 54,
+        "manquees": 22,
+        "fausses_alertes": 105,
+        "rappel": 0.7105,
+        "precision": 0.3396,
+        "lecture": "Alerter dès que la prédiction dépasse 2.15 % (et non la limite contractuelle de 3.0 %) détecte 54 des 76 heures hors spécification, au prix de 105 fausses alertes."
+    }
+}

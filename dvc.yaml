@@ -1,0 +1,129 @@
+#  Pipeline de prédiction de l'impureté en silice.
+#
+#  Chaque étape déclare ses entrées, ses sorties et les sections de
+#  params.yaml dont elle dépend. DVC ne réexécute que ce qui est réellement
+#  affecté par un changement : modifier `evaluation.spec_limit_pp` ne
+#  réentraîne pas le modèle, modifier `data.test_size` reconstruit tout.
+#
+#      python -m src.<module>   et non   python src/<...>.py
+#  pour que les imports `from src...` fonctionnent sans bricoler sys.path.
+
+stages:
+  split:
+    desc: Sépare le fichier brut en jeux d'entraînement et de test.
+    cmd: python -m src.data.make_dataset
+    deps:
+      - data/raw/raw.csv
+      - src/data/make_dataset.py
+      - src/config.py
+    params:
+      - seed
+      - data
+    outs:
+      - data/processed/X_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_train.csv
+      - data/processed/y_test.csv
+
+  normalize:
+    desc: Centre et réduit les variables ; conserve le scaler pour le service.
+    cmd: python -m src.data.build_features
+    deps:
+      - data/processed/X_train.csv
+      - data/processed/X_test.csv
+      - src/data/build_features.py
+      - src/config.py
+    params:
+      - features
+    outs:
+      - data/processed/X_train_scaled.csv
+      - data/processed/X_test_scaled.csv
+      - models/scaler.joblib
+
+  tune:
+    desc: Recherche les hyperparamètres par validation croisée sur le train.
+    cmd: python -m src.models.tune
+    deps:
+      - data/processed/X_train_scaled.csv
+      - data/processed/y_train.csv
+      - src/models/tune.py
+      - src/registry.py
+      - src/config.py
+    params:
+      - seed
+      - tuning
+    outs:
+      - models/best_params.json
+      - models/best_params.pkl
+    metrics:
+      - metrics/tuning.json:
+          cache: false
+
+  train:
+    desc: Entraîne le modèle final avec les hyperparamètres retenus.
+    cmd: python -m src.models.train
+    deps:
+      - data/processed/X_train_scaled.csv
+      - data/processed/y_train.csv
+      - models/best_params.json
+      - src/models/train.py
+      - src/registry.py
+      - src/config.py
+    params:
+      - seed
+      - train
+      - tuning.estimator
+    outs:
+      - models/model.joblib
+
+  evaluate:
+    desc: Mesure la performance et la traduit en indicateurs d'exploitation.
+    cmd: python -m src.models.evaluate
+    deps:
+      - data/processed/X_test_scaled.csv
+      - data/processed/y_test.csv
+      - data/processed/y_train.csv
+      - models/model.joblib
+      - src/models/evaluate.py
+      - src/viz.py
+      - src/config.py
+    params:
+      - seed
+      - evaluation
+    outs:
+      - data/processed/predictions.csv
+    metrics:
+      - metrics/metrics.json:
+          cache: false
+      - metrics/business_metrics.json:
+          cache: false
+    plots:
+      - reports/figures/predictions_vs_mesures.png:
+          cache: false
+      - reports/figures/distribution_erreurs.png:
+          cache: false
+      - reports/figures/alerte_hors_spec.png:
+          cache: false
+      - reports/figures/importance_variables.png:
+          cache: false
+
+  benchmark:
+    desc: Compare les familles de modèles pour justifier l'estimateur retenu.
+    cmd: python -m src.models.benchmark
+    deps:
+      - data/processed/X_train_scaled.csv
+      - data/processed/y_train.csv
+      - src/models/benchmark.py
+      - src/registry.py
+      - src/viz.py
+      - src/config.py
+    params:
+      - seed
+      - benchmark
+      - tuning.estimator
+    metrics:
+      - metrics/model_comparison.json:
+          cache: false
+    plots:
+      - reports/figures/comparaison_modeles.png:
+          cache: false

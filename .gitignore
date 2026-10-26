@@ -1,0 +1,31 @@
+# --- Données et artefacts versionnés par DVC, pas par Git -------------------
+# Git garde les pointeurs (dvc.lock) et les métriques ; les fichiers lourds
+# vivent dans le stockage distant DVC.
+/data/processed/
+/models/
+
+# --- Secrets ----------------------------------------------------------------
+# Jetons d'accès au stockage distant. Ne doit jamais partir sur GitHub.
+.dvc/config.local
+.env
+*.pem
+
+# --- Archive du rendu d'examen d'origine (conservée en local uniquement) ----
+/.archive_examen/
+
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# --- Systèmes et éditeurs ---------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

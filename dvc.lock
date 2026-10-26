@@ -1,0 +1,302 @@
+schema: '2.0'
+stages:
+  split:
+    cmd: python -m src.data.make_dataset
+    deps:
+    - path: data/raw/raw.csv
+      hash: md5
+      md5: c6a535ba2caec3bd2f329b08f6374b6a
+      size: 296108
+    - path: src/config.py
+      hash: md5
+      md5: a7f2637e51a20a413f9d83cb6327c338
+      size: 2729
+    - path: src/data/make_dataset.py
+      hash: md5
+      md5: ceae0f14e1004b2425b57cdb61fa82eb
+      size: 2148
+    params:
+      params.yaml:
+        data:
+          raw_path: data/raw/raw.csv
+          processed_dir: data/processed
+          target: silica_concentrate
+          drop_columns:
+          - date
+          test_size: 0.2
+        seed: 42
+    outs:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: 3952204a69c59899768d1afdd321cc01
+      size: 53051
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 17d15082a36c7d04a40b3125b6a8dde4
+      size: 210788
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 8e80b95c608de8d5b3e955747efb11a8
+      size: 6833
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 174414f478d1a92154a4e6d695d76920
+      size: 27384
+  normalize:
+    cmd: python -m src.data.build_features
+    deps:
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: 3952204a69c59899768d1afdd321cc01
+      size: 53051
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 17d15082a36c7d04a40b3125b6a8dde4
+      size: 210788
+    - path: src/config.py
+      hash: md5
+      md5: a7f2637e51a20a413f9d83cb6327c338
+      size: 2729
+    - path: src/data/build_features.py
+      hash: md5
+      md5: be5880a50922fed7af97c7ede3d60045
+      size: 1776
+    params:
+      params.yaml:
+        features:
+          scaler: standard
+    outs:
+    - path: data/processed/X_test_scaled.csv
+      hash: md5
+      md5: 40cd65b2a89fa718e45092643e68944a
+      size: 57279
+    - path: data/processed/X_train_scaled.csv
+      hash: md5
+      md5: 3eed90951abe7e6d6be04d537912db2d
+      size: 228446
+    - path: models/scaler.joblib
+      hash: md5
+      md5: 615745fee383f16ac6b3073596da8614
+      size: 1175
+  tune:
+    cmd: python -m src.models.tune
+    deps:
+    - path: data/processed/X_train_scaled.csv
+      hash: md5
+      md5: 3eed90951abe7e6d6be04d537912db2d
+      size: 228446
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 174414f478d1a92154a4e6d695d76920
+      size: 27384
+    - path: src/config.py
+      hash: md5
+      md5: a7f2637e51a20a413f9d83cb6327c338
+      size: 2729
+    - path: src/models/tune.py
+      hash: md5
+      md5: 6f2728ee2648aa5770fab4c6fcb3a0dc
+      size: 2795
+    - path: src/registry.py
+      hash: md5
+      md5: eb75d763b4bc634c23d71c9bd234aa77
+      size: 2817
+    params:
+      params.yaml:
+        seed: 42
+        tuning:
+          cv_folds: 5
+          scoring: r2
+          verbose: 1
+          estimator: extra_trees
+          param_grid:
+            n_estimators:
+            - 300
+            - 600
+            max_depth:
+            - 
+            - 20
+            min_samples_leaf:
+            - 1
+            - 2
+            max_features:
+            - 1.0
+            - 0.6
+    outs:
+    - path: metrics/tuning.json
+      hash: md5
+      md5: def277491ecc452072e0e9708750cfc2
+      size: 134
+    - path: models/best_params.json
+      hash: md5
+      md5: 9d7e92823a9aaf147b62afeeed3f02c8
+      size: 97
+    - path: models/best_params.pkl
+      hash: md5
+      md5: 090d88d4405a9c8c117cc76ba80417f8
+      size: 93
+  train:
+    cmd: python -m src.models.train
+    deps:
+    - path: data/processed/X_train_scaled.csv
+      hash: md5
+      md5: 3eed90951abe7e6d6be04d537912db2d
+      size: 228446
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 174414f478d1a92154a4e6d695d76920
+      size: 27384
+    - path: models/best_params.json
+      hash: md5
+      md5: 9d7e92823a9aaf147b62afeeed3f02c8
+      size: 97
+    - path: src/config.py
+      hash: md5
+      md5: a7f2637e51a20a413f9d83cb6327c338
+      size: 2729
+    - path: src/models/train.py
+      hash: md5
+      md5: ae528ce8d1cc0e7e0ba6b132034406d1
+      size: 2043
+    - path: src/registry.py
+      hash: md5
+      md5: eb75d763b4bc634c23d71c9bd234aa77
+      size: 2817
+    params:
+      params.yaml:
+        seed: 42
+        train:
+          fallback_params:
+            n_estimators: 600
+            max_depth: 20
+            min_samples_leaf: 1
+            max_features: 0.6
+        tuning.estimator: extra_trees
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: bc062681fb5463ba342c80ab554a191f
+      size: 111445713
+  evaluate:
+    cmd: python -m src.models.evaluate
+    deps:
+    - path: data/processed/X_test_scaled.csv
+      hash: md5
+      md5: 40cd65b2a89fa718e45092643e68944a
+      size: 57279
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 8e80b95c608de8d5b3e955747efb11a8
+      size: 6833
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 174414f478d1a92154a4e6d695d76920
+      size: 27384
+    - path: models/model.joblib
+      hash: md5
+      md5: bc062681fb5463ba342c80ab554a191f
+      size: 111445713
+    - path: src/config.py
+      hash: md5
+      md5: a7f2637e51a20a413f9d83cb6327c338
+      size: 2729
+    - path: src/models/evaluate.py
+      hash: md5
+      md5: b10195debbcd5d5d6a7b9a4ca6cd59ad
+      size: 11655
+    - path: src/viz.py
+      hash: md5
+      md5: 8e977be1015e2c4057cfd7f7f841ca6c
+      size: 10260
+    params:
+      params.yaml:
+        evaluation:
+          tolerance_pp: 0.5
+          spec_limit_pp: 3.0
+          alert_recall_target: 0.7
+          alert_threshold_grid:
+            start: 1.5
+            stop: 3.3
+            step: 0.05
+        seed: 42
+    outs:
+    - path: data/processed/predictions.csv
+      hash: md5
+      md5: f6e64d77a4b06b8df461e64c47d89933
+      size: 20843
+    - path: metrics/business_metrics.json
+      hash: md5
+      md5: e7854d5539722c6a20ba9bf6b607b4f8
+      size: 1154
+    - path: metrics/metrics.json
+      hash: md5
+      md5: 93598373024477daab1b52f2988964ea
+      size: 132
+    - path: reports/figures/alerte_hors_spec.png
+      hash: md5
+      md5: 488e13ff69d631fffa5a688827a63b24
+      size: 50076
+    - path: reports/figures/distribution_erreurs.png
+      hash: md5
+      md5: 17f2bb36d9214446b24c1eefa2d2e594
+      size: 44394
+    - path: reports/figures/importance_variables.png
+      hash: md5
+      md5: 67b29d84b29f94c6d01335e1284fcca3
+      size: 49887
+    - path: reports/figures/predictions_vs_mesures.png
+      hash: md5
+      md5: 9de1bd3278542935fbde4a995efbe75e
+      size: 108480
+  benchmark:
+    cmd: python -m src.models.benchmark
+    deps:
+    - path: data/processed/X_train_scaled.csv
+      hash: md5
+      md5: 3eed90951abe7e6d6be04d537912db2d
+      size: 228446
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 174414f478d1a92154a4e6d695d76920
+      size: 27384
+    - path: src/config.py
+      hash: md5
+      md5: a7f2637e51a20a413f9d83cb6327c338
+      size: 2729
+    - path: src/models/benchmark.py
+      hash: md5
+      md5: f8abc32595d69a05df0adbf27e316a42
+      size: 3142
+    - path: src/registry.py
+      hash: md5
+      md5: eb75d763b4bc634c23d71c9bd234aa77
+      size: 2817
+    - path: src/viz.py
+      hash: md5
+      md5: 8e977be1015e2c4057cfd7f7f841ca6c
+      size: 10260
+    params:
+      params.yaml:
+        benchmark:
+          cv_folds: 5
+          candidates:
+          - dummy_mean
+          - ridge
+          - knn
+          - svr
+          - random_forest_exam
+          - random_forest
+          - extra_trees
+          - gradient_boosting
+          - hist_gradient_boosting
+        seed: 42
+        tuning.estimator: extra_trees
+    outs:
+    - path: metrics/model_comparison.json
+      hash: md5
+      md5: febaec193167c9e076b8b2b3d884d2b7
+      size: 2056
+    - path: reports/figures/comparaison_modeles.png
+      hash: md5
+      md5: 822fe0eff1a362ccfdf2de8b86c2ef25
+      size: 76385

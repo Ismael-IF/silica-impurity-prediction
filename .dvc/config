@@ -1,0 +1,15 @@
+[core]
+    remote = dagshub
+    autostage = true
+
+# Stockage distant des artefacts volumineux (jeux normalisés, modèle
+# entraîné). Les identifiants ne sont PAS ici : ils vivent dans
+# .dvc/config.local, ignoré par Git. Voir README, section « Stockage distant ».
+['remote "dagshub"']
+    url = s3://dvc
+    endpointurl = https://dagshub.com/Ismael-IF/examen-dvc_Ismael_Foudjo.s3
+
+# Solution de repli pour travailler hors ligne :
+#   dvc remote default local
+['remote "local"']
+    url = ../../dvc_storage

@@ -1,0 +1,69 @@
+{
+    "protocole": "validation croisee 5 plis sur le jeu d'entrainement",
+    "modele_retenu": "extra_trees",
+    "resultats": [
+        {
+            "modele": "extra_trees",
+            "libelle": "Extra Trees",
+            "r2_moyen": 0.2466,
+            "r2_ecart_type": 0.0466,
+            "rmse_moyen": 0.9117
+        },
+        {
+            "modele": "random_forest_exam",
+            "libelle": "Random Forest (version examen)",
+            "r2_moyen": 0.216,
+            "r2_ecart_type": 0.0568,
+            "rmse_moyen": 0.9298
+        },
+        {
+            "modele": "random_forest",
+            "libelle": "Random Forest",
+            "r2_moyen": 0.2108,
+            "r2_ecart_type": 0.0547,
+            "rmse_moyen": 0.9328
+        },
+        {
+            "modele": "gradient_boosting",
+            "libelle": "Gradient Boosting",
+            "r2_moyen": 0.2078,
+            "r2_ecart_type": 0.0542,
+            "rmse_moyen": 0.9348
+        },
+        {
+            "modele": "ridge",
+            "libelle": "Régression Ridge",
+            "r2_moyen": 0.1475,
+            "r2_ecart_type": 0.0393,
+            "rmse_moyen": 0.9699
+        },
+        {
+            "modele": "knn",
+            "libelle": "k plus proches voisins",
+            "r2_moyen": 0.141,
+            "r2_ecart_type": 0.0504,
+            "rmse_moyen": 0.9736
+        },
+        {
+            "modele": "hist_gradient_boosting",
+            "libelle": "Hist Gradient Boosting",
+            "r2_moyen": 0.1321,
+            "r2_ecart_type": 0.0751,
+            "rmse_moyen": 0.9782
+        },
+        {
+            "modele": "svr",
+            "libelle": "SVR (noyau RBF)",
+            "r2_moyen": 0.0945,
+            "r2_ecart_type": 0.0845,
+            "rmse_moyen": 0.9993
+        },
+        {
+            "modele": "dummy_mean",
+            "libelle": "Référence (moyenne)",
+            "r2_moyen": -0.0051,
+            "r2_ecart_type": 0.0056,
+            "rmse_moyen": 1.0534
+        }
+    ]
+}

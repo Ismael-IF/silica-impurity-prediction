@@ -1,0 +1,7 @@
+{
+  "estimator": "extra_trees",
+  "scoring": "r2",
+  "cv_folds": 5,
+  "best_cv_score": 0.259655242819671,
+  "n_candidates": 16
+}

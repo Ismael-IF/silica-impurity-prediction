@@ -1,0 +1,75 @@
+# ---------------------------------------------------------------------------
+# Paramètres du pipeline — source de vérité unique.
+# Toute valeur modifiable sans toucher au code vit ici : DVC détecte le
+# changement et ne réexécute que les étapes concernées.
+# ---------------------------------------------------------------------------
+
+seed: 42
+
+# Nombre de processus pour les calculs parallélisables (recherche sur grille,
+# importance par permutation). `-1` prend tous les cœurs : sur une machine de
+# bureau, cela fait tourner autant de forêts en mémoire et finit par faire
+# tomber les workers. Une valeur explicite est plus sûre et plus reproductible.
+n_jobs: 4
+
+data:
+  raw_path: data/raw/raw.csv
+  processed_dir: data/processed
+  target: silica_concentrate
+  # Colonnes supprimées si présentes dans le fichier brut.
+  drop_columns:
+    - date
+  test_size: 0.2
+
+features:
+  # standard -> StandardScaler ; ajusté sur le train uniquement.
+  scaler: standard
+
+tuning:
+  cv_folds: 5
+  scoring: r2
+  verbose: 1
+  # Modèle retenu après benchmark (voir docs/04-resultats.md).
+  estimator: extra_trees
+  param_grid:
+    n_estimators: [300, 600]
+    max_depth: [null, 20]
+    min_samples_leaf: [1, 2]
+    max_features: [1.0, 0.6]
+
+train:
+  # Garde-fou : si le tuning est indisponible, on retombe sur ces valeurs.
+  fallback_params:
+    n_estimators: 600
+    max_depth: 20
+    min_samples_leaf: 1
+    max_features: 0.6
+
+evaluation:
+  # Tolérance opérationnelle : écart acceptable entre prédiction et dosage
+  # laboratoire, en points de pourcentage de silice.
+  tolerance_pp: 0.5
+  # Seuil contractuel au-delà duquel l'heure est considérée hors spécification.
+  spec_limit_pp: 3.0
+  # Part des heures hors spécification que l'exploitation veut détecter.
+  # Le seuil de déclenchement de l'alerte est calibré sur cet objectif, et non
+  # posé d'office à la limite contractuelle : voir docs/01-cas-metier.md.
+  alert_recall_target: 0.70
+  alert_threshold_grid:
+    start: 1.5
+    stop: 3.3
+    step: 0.05
+
+benchmark:
+  # Modèles comparés pour justifier le choix de l'estimateur final.
+  cv_folds: 5
+  candidates:
+    - dummy_mean
+    - ridge
+    - knn
+    - svr
+    - random_forest_exam
+    - random_forest
+    - extra_trees
+    - gradient_boosting
+    - hist_gradient_boosting

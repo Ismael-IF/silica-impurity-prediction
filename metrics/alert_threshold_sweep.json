@@ -1,0 +1,326 @@
+[
+  {
+    "seuil_pp": 1.5,
+    "alertes_levees": 341,
+    "detectees": 74,
+    "manquees": 2,
+    "fausses_alertes": 267,
+    "rappel": 0.9737,
+    "precision": 0.217
+  },
+  {
+    "seuil_pp": 1.55,
+    "alertes_levees": 333,
+    "detectees": 74,
+    "manquees": 2,
+    "fausses_alertes": 259,
+    "rappel": 0.9737,
+    "precision": 0.2222
+  },
+  {
+    "seuil_pp": 1.6,
+    "alertes_levees": 324,
+    "detectees": 74,
+    "manquees": 2,
+    "fausses_alertes": 250,
+    "rappel": 0.9737,
+    "precision": 0.2284
+  },
+  {
+    "seuil_pp": 1.65,
+    "alertes_levees": 314,
+    "detectees": 74,
+    "manquees": 2,
+    "fausses_alertes": 240,
+    "rappel": 0.9737,
+    "precision": 0.2357
+  },
+  {
+    "seuil_pp": 1.7,
+    "alertes_levees": 297,
+    "detectees": 72,
+    "manquees": 4,
+    "fausses_alertes": 225,
+    "rappel": 0.9474,
+    "precision": 0.2424
+  },
+  {
+    "seuil_pp": 1.75,
+    "alertes_levees": 277,
+    "detectees": 71,
+    "manquees": 5,
+    "fausses_alertes": 206,
+    "rappel": 0.9342,
+    "precision": 0.2563
+  },
+  {
+    "seuil_pp": 1.8,
+    "alertes_levees": 262,
+    "detectees": 69,
+    "manquees": 7,
+    "fausses_alertes": 193,
+    "rappel": 0.9079,
+    "precision": 0.2634
+  },
+  {
+    "seuil_pp": 1.85,
+    "alertes_levees": 251,
+    "detectees": 67,
+    "manquees": 9,
+    "fausses_alertes": 184,
+    "rappel": 0.8816,
+    "precision": 0.2669
+  },
+  {
+    "seuil_pp": 1.9,
+    "alertes_levees": 237,
+    "detectees": 67,
+    "manquees": 9,
+    "fausses_alertes": 170,
+    "rappel": 0.8816,
+    "precision": 0.2827
+  },
+  {
+    "seuil_pp": 1.95,
+    "alertes_levees": 224,
+    "detectees": 67,
+    "manquees": 9,
+    "fausses_alertes": 157,
+    "rappel": 0.8816,
+    "precision": 0.2991
+  },
+  {
+    "seuil_pp": 2.0,
+    "alertes_levees": 206,
+    "detectees": 60,
+    "manquees": 16,
+    "fausses_alertes": 146,
+    "rappel": 0.7895,
+    "precision": 0.2913
+  },
+  {
+    "seuil_pp": 2.05,
+    "alertes_levees": 192,
+    "detectees": 58,
+    "manquees": 18,
+    "fausses_alertes": 134,
+    "rappel": 0.7632,
+    "precision": 0.3021
+  },
+  {
+    "seuil_pp": 2.1,
+    "alertes_levees": 177,
+    "detectees": 56,
+    "manquees": 20,
+    "fausses_alertes": 121,
+    "rappel": 0.7368,
+    "precision": 0.3164
+  },
+  {
+    "seuil_pp": 2.15,
+    "alertes_levees": 159,
+    "detectees": 54,
+    "manquees": 22,
+    "fausses_alertes": 105,
+    "rappel": 0.7105,
+    "precision": 0.3396
+  },
+  {
+    "seuil_pp": 2.2,
+    "alertes_levees": 146,
+    "detectees": 52,
+    "manquees": 24,
+    "fausses_alertes": 94,
+    "rappel": 0.6842,
+    "precision": 0.3562
+  },
+  {
+    "seuil_pp": 2.25,
+    "alertes_levees": 132,
+    "detectees": 51,
+    "manquees": 25,
+    "fausses_alertes": 81,
+    "rappel": 0.6711,
+    "precision": 0.3864
+  },
+  {
+    "seuil_pp": 2.3,
+    "alertes_levees": 115,
+    "detectees": 46,
+    "manquees": 30,
+    "fausses_alertes": 69,
+    "rappel": 0.6053,
+    "precision": 0.4
+  },
+  {
+    "seuil_pp": 2.35,
+    "alertes_levees": 102,
+    "detectees": 43,
+    "manquees": 33,
+    "fausses_alertes": 59,
+    "rappel": 0.5658,
+    "precision": 0.4216
+  },
+  {
+    "seuil_pp": 2.4,
+    "alertes_levees": 93,
+    "detectees": 43,
+    "manquees": 33,
+    "fausses_alertes": 50,
+    "rappel": 0.5658,
+    "precision": 0.4624
+  },
+  {
+    "seuil_pp": 2.45,
+    "alertes_levees": 84,
+    "detectees": 41,
+    "manquees": 35,
+    "fausses_alertes": 43,
+    "rappel": 0.5395,
+    "precision": 0.4881
+  },
+  {
+    "seuil_pp": 2.5,
+    "alertes_levees": 76,
+    "detectees": 40,
+    "manquees": 36,
+    "fausses_alertes": 36,
+    "rappel": 0.5263,
+    "precision": 0.5263
+  },
+  {
+    "seuil_pp": 2.55,
+    "alertes_levees": 73,
+    "detectees": 40,
+    "manquees": 36,
+    "fausses_alertes": 33,
+    "rappel": 0.5263,
+    "precision": 0.5479
+  },
+  {
+    "seuil_pp": 2.6,
+    "alertes_levees": 67,
+    "detectees": 37,
+    "manquees": 39,
+    "fausses_alertes": 30,
+    "rappel": 0.4868,
+    "precision": 0.5522
+  },
+  {
+    "seuil_pp": 2.65,
+    "alertes_levees": 60,
+    "detectees": 35,
+    "manquees": 41,
+    "fausses_alertes": 25,
+    "rappel": 0.4605,
+    "precision": 0.5833
+  },
+  {
+    "seuil_pp": 2.7,
+    "alertes_levees": 53,
+    "detectees": 32,
+    "manquees": 44,
+    "fausses_alertes": 21,
+    "rappel": 0.4211,
+    "precision": 0.6038
+  },
+  {
+    "seuil_pp": 2.75,
+    "alertes_levees": 49,
+    "detectees": 30,
+    "manquees": 46,
+    "fausses_alertes": 19,
+    "rappel": 0.3947,
+    "precision": 0.6122
+  },
+  {
+    "seuil_pp": 2.8,
+    "alertes_levees": 47,
+    "detectees": 30,
+    "manquees": 46,
+    "fausses_alertes": 17,
+    "rappel": 0.3947,
+    "precision": 0.6383
+  },
+  {
+    "seuil_pp": 2.85,
+    "alertes_levees": 41,
+    "detectees": 27,
+    "manquees": 49,
+    "fausses_alertes": 14,
+    "rappel": 0.3553,
+    "precision": 0.6585
+  },
+  {
+    "seuil_pp": 2.9,
+    "alertes_levees": 37,
+    "detectees": 25,
+    "manquees": 51,
+    "fausses_alertes": 12,
+    "rappel": 0.3289,
+    "precision": 0.6757
+  },
+  {
+    "seuil_pp": 2.95,
+    "alertes_levees": 33,
+    "detectees": 23,
+    "manquees": 53,
+    "fausses_alertes": 10,
+    "rappel": 0.3026,
+    "precision": 0.697
+  },
+  {
+    "seuil_pp": 3.0,
+    "alertes_levees": 30,
+    "detectees": 21,
+    "manquees": 55,
+    "fausses_alertes": 9,
+    "rappel": 0.2763,
+    "precision": 0.7
+  },
+  {
+    "seuil_pp": 3.05,
+    "alertes_levees": 29,
+    "detectees": 21,
+    "manquees": 55,
+    "fausses_alertes": 8,
+    "rappel": 0.2763,
+    "precision": 0.7241
+  },
+  {
+    "seuil_pp": 3.1,
+    "alertes_levees": 25,
+    "detectees": 17,
+    "manquees": 59,
+    "fausses_alertes": 8,
+    "rappel": 0.2237,
+    "precision": 0.68
+  },
+  {
+    "seuil_pp": 3.15,
+    "alertes_levees": 21,
+    "detectees": 16,
+    "manquees": 60,
+    "fausses_alertes": 5,
+    "rappel": 0.2105,
+    "precision": 0.7619
+  },
+  {
+    "seuil_pp": 3.2,
+    "alertes_levees": 19,
+    "detectees": 15,
+    "manquees": 61,
+    "fausses_alertes": 4,
+    "rappel": 0.1974,
+    "precision": 0.7895
+  },
+  {
+    "seuil_pp": 3.25,
+    "alertes_levees": 19,
+    "detectees": 15,
+    "manquees": 61,
+    "fausses_alertes": 4,
+    "rappel": 0.1974,
+    "precision": 0.7895
+  }
+]
