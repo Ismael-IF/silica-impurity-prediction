@@ -4,7 +4,7 @@
 > **à partir des capteurs du procédé, sans attendre l'analyse laboratoire** —
 > et qui transforme cette estimation en alerte exploitable en salle de contrôle.
 
-[![CI](https://github.com/Ismael-IF/silica-impurity-prediction/actions/workflows/ci.yml/badge.svg)](../../actions)
+[![CI](https://github.com/Ismael-IF/silica-impurity-prediction/actions/workflows/ci.yml/badge.svg)](https://github.com/Ismael-IF/silica-impurity-prediction/actions)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![DVC](https://img.shields.io/badge/pipeline-DVC-945dd6)](https://dvc.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
