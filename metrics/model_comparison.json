@@ -10,8 +10,8 @@
             "rmse_moyen": 0.9117
         },
         {
-            "modele": "random_forest_exam",
-            "libelle": "Random Forest (version examen)",
+            "modele": "random_forest_baseline",
+            "libelle": "Random Forest (configuration initiale)",
             "r2_moyen": 0.216,
             "r2_ecart_type": 0.0568,
             "rmse_moyen": 0.9298

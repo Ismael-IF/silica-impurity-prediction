@@ -53,9 +53,9 @@ class TestRegistre:
         estimator = build_estimator("extra_trees", seed=1, n_estimators=77)
         assert estimator.get_params()["n_estimators"] == 77
 
-    def test_le_modele_de_lexamen_garde_ses_hyperparametres(self):
+    def test_la_configuration_initiale_garde_ses_hyperparametres(self):
         """Le point de comparaison doit rester figé, sinon le benchmark ment."""
-        params = build_estimator("random_forest_exam", seed=42).get_params()
+        params = build_estimator("random_forest_baseline", seed=42).get_params()
         assert params["n_estimators"] == 200
         assert params["max_depth"] == 10
         assert params["min_samples_leaf"] == 2

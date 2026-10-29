@@ -56,7 +56,7 @@ Jeu de test : **364 heures de production** jamais vues à l'entraînement.
 | Biais moyen | — | +0,001 | modèle non biaisé |
 
 Le modèle retenu (**Extra Trees**, hyperparamètres issus d'une recherche sur
-grille en validation croisée) fait **mieux que le modèle rendu à l'examen**
+grille en validation croisée) fait **mieux que la configuration initiale**
 (Random Forest : R² 0,216 en validation croisée contre 0,247) et nettement
 mieux que la référence.
 
@@ -166,18 +166,21 @@ ruff check src tests      # style
 
 ### Stockage distant
 
-Les artefacts lourds (jeux normalisés, modèle entraîné) sont poussés vers un
-stockage S3 hébergé sur DagsHub. Les identifiants ne sont **jamais** dans le
-dépôt : ils vivent dans `.dvc/config.local`, ignoré par Git.
+Les artefacts lourds (jeux normalisés, modèle entraîné) sont versionnés par
+DVC, pas par Git. Le stockage par défaut est un dossier voisin du dépôt :
+aucun identifiant, aucun accès réseau, le pipeline tourne dès le clone.
+
+Pour un stockage partagé (S3, DagsHub, GCS…), déclarez-le **en local**, afin
+que ni l'URL ni les jetons ne partent dans Git — `.dvc/config.local` est ignoré :
 
 ```bash
-dvc remote modify --local dagshub access_key_id <votre_jeton>
-dvc remote modify --local dagshub secret_access_key <votre_jeton>
+dvc remote add    --local storage s3://<bucket>
+dvc remote modify --local storage endpointurl https://<hôte>
+dvc remote modify --local storage access_key_id <votre_jeton>
+dvc remote modify --local storage secret_access_key <votre_jeton>
+dvc remote default --local storage
 dvc push
 ```
-
-Pour travailler hors ligne, un stockage local est préconfiguré :
-`dvc remote default local`.
 
 ---
 
@@ -186,7 +189,7 @@ Pour travailler hors ligne, un stockage local est préconfiguré :
 | Document | Contenu |
 |---|---|
 | [Cas métier](docs/01-cas-metier.md) | Le procédé, pourquoi l'analyse horaire arrive trop tard, et pourquoi le seuil d'alerte est une décision économique |
-| [Architecture](docs/02-architecture.md) | Graphe de dépendances, décisions d'ingénierie, et le détail de ce qui a changé depuis le rendu d'examen |
+| [Architecture](docs/02-architecture.md) | Graphe de dépendances, décisions d'ingénierie, et le détail de la refonte du code initial |
 | [Fiche modèle](docs/03-model-card.md) | Usage prévu et hors périmètre, données, performances, limites |
 | [Résultats détaillés](docs/04-resultats.md) | Benchmark des 9 modèles, réglage, balayage du seuil, et **ce qui a été tenté sans succès** |
 
@@ -243,24 +246,27 @@ Un résultat négatif, mais mesuré — et donc conservé plutôt que caché.
 
 ---
 
-## Origine du projet
+## Genèse
 
-Ce dépôt est la reprise d'un examen MLOps (DataScientest, certification
-Machine Learning Engineer) que j'ai entièrement repris pour en faire un projet
-présentable : chemins absolus supprimés, configuration extraite du code,
-recherche sur grille réellement branchée au pipeline, scaler persisté,
-benchmark de modèles, traduction des métriques en indicateurs d'exploitation,
-tests et intégration continue.
+Projet mené sur plusieurs mois. La première version produisait un modèle qui
+fonctionnait, mais sur une seule machine : chemins absolus, hyperparamètres
+recopiés à la main, scaler jeté après usage, aucun point de comparaison.
 
-Le modèle rendu à l'examen est conservé dans le benchmark sous le nom
-*Random Forest (version examen)* : il sert de point de comparaison honnête
-pour mesurer ce que la reprise a réellement apporté.
+La refonte a porté sur tout ce qui sépare un modèle qui tourne d'un modèle
+livrable : configuration extraite du code, recherche sur grille réellement
+branchée au pipeline, scaler persisté, benchmark de neuf familles de modèles,
+calibration du seuil d'alerte, tests et intégration continue. Le détail figure
+dans [docs/02-architecture.md](docs/02-architecture.md).
+
+La première configuration de modèle est conservée dans le benchmark sous le nom
+*Random Forest (configuration initiale)* : elle sert de point de comparaison
+honnête pour mesurer ce que la refonte a réellement apporté.
 
 **Jeu de données** — 1 817 heures de production d'une usine de flottation,
 dérivé de *Quality Prediction in a Mining Process*. Le fichier
-`data/raw/raw.csv` a été reconstitué à partir du cache DVC du rendu d'origine
-(les quatre jeux découpés, recomposés) ; la colonne d'horodatage, supprimée
-par le pipeline, n'y figure pas.
+`data/raw/raw.csv` a été reconstitué à partir du cache DVC de la première
+version (les quatre jeux découpés, recomposés) ; la colonne d'horodatage,
+supprimée par le pipeline, n'y figure pas.
 
 ---
 

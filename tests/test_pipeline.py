@@ -126,7 +126,7 @@ class TestNormalisation:
 
 class TestEnchainementTuningEntrainement:
     def test_les_hyperparametres_trouves_sont_ceux_utilises(self, fake_project):
-        """Le défaut corrigé par rapport au rendu d'examen : la recherche sur
+        """Le défaut corrigé par rapport à la première version : la recherche sur
         grille écrivait un fichier que l'entraînement ignorait."""
         make_dataset.main()
         build_features.main()

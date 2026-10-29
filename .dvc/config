@@ -1,15 +1,16 @@
 [core]
-    remote = dagshub
+    remote = local
     autostage = true
 
-# Stockage distant des artefacts volumineux (jeux normalisés, modèle
-# entraîné). Les identifiants ne sont PAS ici : ils vivent dans
-# .dvc/config.local, ignoré par Git. Voir README, section « Stockage distant ».
-['remote "dagshub"']
-    url = s3://dvc
-    endpointurl = https://dagshub.com/Ismael-IF/examen-dvc_Ismael_Foudjo.s3
-
-# Solution de repli pour travailler hors ligne :
-#   dvc remote default local
+# Stockage par défaut : un dossier voisin du dépôt, qui fonctionne hors ligne
+# et sans aucun identifiant. Suffisant pour cloner et rejouer le pipeline.
 ['remote "local"']
     url = ../../dvc_storage
+
+# Pour un stockage distant partagé (S3, DagsHub, GCS…), déclarez-le en local
+# afin que ni l'URL ni les identifiants ne partent dans Git :
+#   dvc remote add --local storage s3://<bucket>
+#   dvc remote modify --local storage endpointurl https://<hôte>
+#   dvc remote modify --local storage access_key_id <jeton>
+#   dvc remote modify --local storage secret_access_key <jeton>
+#   dvc remote default --local storage

@@ -59,8 +59,8 @@ stages:
       size: 2729
     - path: src/data/build_features.py
       hash: md5
-      md5: be5880a50922fed7af97c7ede3d60045
-      size: 1776
+      md5: c2c1b8f57b10f6340cbf21a6eff54cb1
+      size: 1779
     params:
       params.yaml:
         features:
@@ -99,8 +99,8 @@ stages:
       size: 2795
     - path: src/registry.py
       hash: md5
-      md5: eb75d763b4bc634c23d71c9bd234aa77
-      size: 2817
+      md5: dcac03ee0f71a942b45ab924e0d9e19b
+      size: 2937
     params:
       params.yaml:
         seed: 42
@@ -160,8 +160,8 @@ stages:
       size: 2043
     - path: src/registry.py
       hash: md5
-      md5: eb75d763b4bc634c23d71c9bd234aa77
-      size: 2817
+      md5: dcac03ee0f71a942b45ab924e0d9e19b
+      size: 2937
     params:
       params.yaml:
         seed: 42
@@ -269,8 +269,8 @@ stages:
       size: 3142
     - path: src/registry.py
       hash: md5
-      md5: eb75d763b4bc634c23d71c9bd234aa77
-      size: 2817
+      md5: dcac03ee0f71a942b45ab924e0d9e19b
+      size: 2937
     - path: src/viz.py
       hash: md5
       md5: 8e977be1015e2c4057cfd7f7f841ca6c
@@ -284,7 +284,7 @@ stages:
           - ridge
           - knn
           - svr
-          - random_forest_exam
+          - random_forest_baseline
           - random_forest
           - extra_trees
           - gradient_boosting
@@ -294,9 +294,9 @@ stages:
     outs:
     - path: metrics/model_comparison.json
       hash: md5
-      md5: febaec193167c9e076b8b2b3d884d2b7
-      size: 2056
+      md5: 7814f57dc10e3035007475092fec749d
+      size: 2068
     - path: reports/figures/comparaison_modeles.png
       hash: md5
-      md5: 822fe0eff1a362ccfdf2de8b86c2ef25
-      size: 76385
+      md5: a498658d870d961611dd974751bd07f2
+      size: 76457

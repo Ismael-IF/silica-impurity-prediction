@@ -22,7 +22,7 @@ Neuf candidats, même protocole, même jeu de données normalisé.
 | Modèle | R² moyen | Écart-type | RMSE moyen |
 |---|---:|---:|---:|
 | **Extra Trees** | **0,247** | 0,047 | **0,912** |
-| Random Forest (version examen) | 0,216 | 0,057 | 0,930 |
+| Random Forest (configuration initiale) | 0,216 | 0,057 | 0,930 |
 | Random Forest | 0,211 | 0,055 | 0,933 |
 | Gradient Boosting | 0,208 | 0,054 | 0,935 |
 | Régression Ridge | 0,147 | 0,039 | 0,970 |
@@ -80,13 +80,13 @@ complexifier.
 
 364 heures de test, jamais vues.
 
-| Métrique | Référence « moyenne » | RF version examen | **Extra Trees réglé** |
+| Métrique | Référence « moyenne » | RF configuration initiale | **Extra Trees réglé** |
 |---|---:|---:|---:|
 | RMSE | 1,023 | 0,888 | **0,878** |
 | MAE | — | 0,688 | **0,678** |
 | R² | 0,000 | 0,248 | **0,264** |
 
-Le gain sur le modèle d'examen est réel mais modeste : **+0,016 de R²**, soit
+Le gain sur la configuration initiale est réel mais modeste : **+0,016 de R²**, soit
 1 % d'erreur en moins. L'essentiel de la valeur du projet n'est pas là.
 
 ### Comportement de l'erreur
@@ -194,7 +194,7 @@ pulpe, produit fer × densité, écart absolu du pH à sa consigne.
 | Modèle | Sans | Avec |
 |---|---:|---:|
 | Extra Trees | 0,247 | 0,239 |
-| Random Forest (examen) | 0,216 | 0,206 |
+| Random Forest (initial) | 0,216 | 0,206 |
 | Hist Gradient Boosting | 0,132 | 0,152 |
 
 **Aucun gain, et même une légère dégradation** sur les deux meilleurs modèles.

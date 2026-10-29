@@ -49,14 +49,14 @@ Découper finement n'est pas de la coquetterie : ajuster le seuil d'alerte est
 l'opération qu'on refait le plus souvent, et elle ne doit pas coûter un
 réentraînement.
 
-## Ce qui a changé depuis le rendu d'examen
+## La refonte du code initial
 
-Le projet d'origine fonctionnait, mais comme un script d'examen, pas comme un
+La première version fonctionnait, mais comme une suite de scripts, pas comme un
 livrable. Le tableau ci-dessous liste ce qui a été repris et pourquoi.
 
 | Avant | Problème | Après |
 |---|---|---|
-| `load("/home/ubuntu/examen_dvc/examen-dvc/models/trained_model.joblib")` | Le code ne tourne que sur la VM de l'auteur | Chemins résolus depuis la racine du projet ([`src/config.py`](../src/config.py)), surchargeables par `SILICA_PROJECT_ROOT` |
+| `load("/home/ubuntu/projet/models/trained_model.joblib")` | Le code ne tourne que sur la VM de l'auteur | Chemins résolus depuis la racine du projet ([`src/config.py`](../src/config.py)), surchargeables par `SILICA_PROJECT_ROOT` |
 | `MODELS_DIR = "/models"` | Pointe vers la racine du disque ; `os.makedirs` échoue ou crée un dossier parasite | Chemins typés via la dataclass `Paths` |
 | Hyperparamètres recopiés à la main dans `train_model.py` | `GridSearch.py` écrivait un `.pkl` que personne ne lisait ; toute nouvelle recherche exigeait une édition manuelle | `tune` écrit `best_params.json`, `train` le relit — avec un test qui vérifie la correspondance |
 | `GridSearch.py` hors pipeline | La recherche n'était pas reproductible ni versionnée | Étape DVC à part entière, avec son dépôt de métriques |
@@ -67,9 +67,9 @@ livrable. Le tableau ci-dessous liste ce qui a été repris et pourquoi.
 | Aucun test | Une fuite de données passerait inaperçue | 33 tests, dont 3 dédiés aux fuites |
 | Aucune métrique métier | Le R² ne dit rien à un responsable de production | `business_metrics.json` et la calibration du seuil d'alerte |
 
-Le modèle d'examen n'a pas été effacé : il reste dans le registre sous
-`random_forest_exam`, avec ses hyperparamètres figés par un test. Il sert de
-point de comparaison honnête dans le benchmark.
+La configuration initiale n'a pas été effacée : elle reste dans le registre sous
+`random_forest_baseline`, avec ses hyperparamètres figés par un test. Elle sert
+de point de comparaison honnête dans le benchmark.
 
 ## Décisions d'ingénierie
 

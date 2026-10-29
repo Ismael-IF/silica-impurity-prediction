@@ -10,8 +10,8 @@
 .env
 *.pem
 
-# --- Archive du rendu d'examen d'origine (conservée en local uniquement) ----
-/.archive_examen/
+# --- Archive de la première version (conservée en local uniquement) --------
+/.archive_v1/
 
 # --- Python -----------------------------------------------------------------
 __pycache__/

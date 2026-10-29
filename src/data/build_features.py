@@ -1,7 +1,7 @@
 """Étape 2 — normalisation des variables explicatives.
 
 Le scaler est ajusté sur le train uniquement, puis **sérialisé**. C'est le
-point qui manquait à la version examen : sans scaler persisté, un modèle
+point qui manquait à la première version : sans scaler persisté, un modèle
 déployé ne peut pas transformer une observation entrante de la même façon
 qu'à l'entraînement, et les prédictions dérivent silencieusement.
 """

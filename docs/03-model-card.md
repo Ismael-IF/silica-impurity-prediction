@@ -109,7 +109,8 @@ sur l'entraînement seul.
 
 ### Reconstitution du fichier brut
 
-`data/raw/raw.csv` a été recomposé à partir du cache DVC du rendu d'origine, en
+`data/raw/raw.csv` a été recomposé à partir du cache DVC de la première
+version du pipeline, en
 réassemblant les quatre jeux découpés. La colonne d'horodatage, que le pipeline
 supprime de toute façon, n'y figure pas — ce qui interdit toute analyse
 temporelle (voir *Limites*).

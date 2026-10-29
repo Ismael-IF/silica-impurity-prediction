@@ -26,7 +26,7 @@ LABELS: dict[str, str] = {
     "ridge": "Régression Ridge",
     "knn": "k plus proches voisins",
     "svr": "SVR (noyau RBF)",
-    "random_forest_exam": "Random Forest (version examen)",
+    "random_forest_baseline": "Random Forest (configuration initiale)",
     "random_forest": "Random Forest",
     "extra_trees": "Extra Trees",
     "gradient_boosting": "Gradient Boosting",
@@ -51,9 +51,9 @@ def build_estimator(name: str, seed: int = 42, **overrides: Any):
         "ridge": lambda: Ridge(alpha=1.0, random_state=None),
         "knn": lambda: KNeighborsRegressor(n_neighbors=10),
         "svr": lambda: SVR(C=10.0, gamma="scale"),
-        # Reproduit à l'identique le modèle rendu pour l'examen : sert de
-        # point de comparaison dans le benchmark.
-        "random_forest_exam": lambda: RandomForestRegressor(
+        # Reproduit à l'identique la première configuration retenue sur ce
+        # jeu de données : sert de point de comparaison dans le benchmark.
+        "random_forest_baseline": lambda: RandomForestRegressor(
             random_state=seed,
             n_estimators=200,
             max_depth=10,
